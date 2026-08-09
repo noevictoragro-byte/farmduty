@@ -166,7 +166,7 @@ model FinancialTransaction {
   attachmentUrl       String?
 
   // AI-assisted entry
-  operationalRecordId String?
+  operationalRecordId String?   @unique
   operationalRecord   OperationalRecord? @relation(fields: [operationalRecordId], references: [id], onDelete: SetNull)
 
   // Metadata
@@ -224,6 +224,7 @@ model Partner {
   transactions        FinancialTransaction[]
   quotes              Quote[]
   shipments           Shipment[]
+  maintenanceRecords  MaintenanceRecord[]
 
   // Ratings & History
   averageRating       Float?
@@ -252,7 +253,7 @@ model Quote {
   validUntilDate      DateTime?
 
   // AI-assisted entry
-  operationalRecordId String?
+  operationalRecordId String?   @unique
   operationalRecord   OperationalRecord? @relation(fields: [operationalRecordId], references: [id], onDelete: SetNull)
 
   createdAt           DateTime  @default(now())
