@@ -600,7 +600,3 @@ model SyncQueue {
   @@index([isSynced])
   @@index([createdAt])
 }
-
-// Relations needed to avoid orphaned records
-relation MaintenanceRecord_Partner @relation(fields: [partnerId], references: [id])
-relation Shipment_Transporter @relation("Shipment_Transporter", fields: [transporterId], references: [id])
