@@ -4,6 +4,7 @@ import { PinModal } from '@/components/modals/PinModal'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import { BottomNav } from './BottomNav'
+import { BrandedFooter } from './BrandedFooter'
 
 interface MainLayoutProps {
   activeSection: string
@@ -20,6 +21,9 @@ export function MainLayout({ activeSection, onSelectSection, children }: MainLay
         <main className="min-w-0 flex-1 p-4 pb-24 md:pb-4">{children}</main>
       </div>
       <BottomNav activeSection={activeSection} onSelectSection={onSelectSection} />
+      <div className="hidden md:block print:hidden">
+        <BrandedFooter showCopyright />
+      </div>
       <PinModal />
       <Toaster />
     </div>

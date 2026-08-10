@@ -34,7 +34,7 @@ function CardBoasVindas({ onFechar }: { onFechar: () => void }) {
   return (
     <Card className="border-primary/30 bg-primary/5">
       <CardHeader>
-        <CardTitle className="text-lg">Bem-vindo ao App Sinho! 🚜</CardTitle>
+        <CardTitle className="text-lg">Bem-vindo ao FarmDuty! 🚜</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <ol className="space-y-3 text-sm">

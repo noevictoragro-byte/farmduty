@@ -182,7 +182,7 @@ export function ConfiguracoesView() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Os dados do App Sinho ficam salvos apenas neste dispositivo. Faça backup regularmente
+            Os dados do FarmDuty ficam salvos apenas neste dispositivo. Faça backup regularmente
             para não perder informações.
           </p>
           <div className="flex flex-wrap gap-2">

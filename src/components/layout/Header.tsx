@@ -5,12 +5,14 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useApp, type EscopoSelecionado, type PerfilUsuario } from '@/contexts/AppContext'
 import { useOnlineStatus } from '@/hooks/useOnlineStatus'
 import { useAuth } from '@/contexts/AuthContext'
+import { useBranding } from '@/hooks/useBranding'
 import { useEffect, useState } from 'react'
 import { syncEngine, type SyncStatus } from '@/lib/syncEngine'
 
 export function Header() {
   const { perfilAtual, solicitarTrocaPerfil, escopoFinanceiro, setEscopoFinanceiro } = useApp()
   const { usuario, logado, abrirModalAuth, fazerLogout } = useAuth()
+  const { appName, primaryColor } = useBranding()
   const online = useOnlineStatus()
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('idle')
 
@@ -22,8 +24,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 flex flex-wrap items-center gap-3 border-b bg-background/95 px-4 py-3 backdrop-blur print:hidden">
       <div className="flex items-center gap-2 font-semibold">
-        <Sprout className="size-5 text-primary" />
-        AgroGest
+        <Sprout className="size-5" style={{ color: primaryColor }} />
+        {appName}
       </div>
 
       <Badge variant={online ? 'default' : 'destructive'} className="gap-1">

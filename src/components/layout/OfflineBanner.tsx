@@ -11,7 +11,7 @@ export function OfflineBanner() {
       <div className="mx-auto flex max-w-3xl items-center justify-center gap-2">
         <AlertCircle className="size-4 shrink-0" />
         <span>
-          <strong>Modo Demonstração AgroGest</strong> — Faça login para sincronizar seus dados na
+          <strong>Modo Demonstração FarmDuty</strong> — Faça login para sincronizar seus dados na
           nuvem.
         </span>
       </div>

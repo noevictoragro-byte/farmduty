@@ -109,7 +109,7 @@ export function RelatoriosView() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="hidden print:block">
-        <h1 className="text-xl font-bold">App Sinho - Relatório Operacional</h1>
+        <h1 className="text-xl font-bold">FarmDuty - Relatório Operacional</h1>
         <p className="text-sm text-muted-foreground">
           Período: {PERIODO_LABELS[periodo]} · Filtro: {FILTRO_CATEGORIA_LABELS[filtro]} · Gerado
           em {new Date().toLocaleString('pt-BR')}

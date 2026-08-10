@@ -164,7 +164,7 @@ export function AuthModal() {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center mb-4 text-lg font-semibold">
-            Bem-vindo ao AgroGest
+            Bem-vindo ao FarmDuty
           </DialogTitle>
           <DialogTitle className="text-center text-sm font-medium text-muted-foreground">
             {aba === 'login' ? '🔐 Entrar na sua conta' : '✨ Criar nova conta'}

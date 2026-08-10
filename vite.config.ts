@@ -13,9 +13,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'App Sinho - ERP Agrícola e Logístico',
-        short_name: 'App Sinho',
-        description: 'ERP Agrícola e Logístico do App Sinho',
+        name: 'FarmDuty - Gestão Agrícola Inteligente',
+        short_name: 'FarmDuty',
+        description: 'FarmDuty — Gestão Agrícola Inteligente. Feito junto com você.',
         lang: 'pt-BR',
         theme_color: '#0f172a',
         background_color: '#ffffff',
