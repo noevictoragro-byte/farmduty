@@ -31,14 +31,50 @@ export interface AtividadeAgricola {
   observacoes?: string
 }
 
-export type TipoVeiculo = 'CAMINHAO' | 'TRATOR' | 'UTILITARIO'
+export type TipoVeiculo =
+  | 'CAMINHAO'
+  | 'TRATOR'
+  | 'UTILITARIO'
+  | 'RETRO'
+  | 'DRONE'
+  | 'IMPLEMENTO'
+
+export const TIPOS_SEM_PLACA: TipoVeiculo[] = ['TRATOR', 'RETRO', 'DRONE', 'IMPLEMENTO']
+export const TIPOS_COM_CHASSIS: TipoVeiculo[] = ['TRATOR', 'RETRO', 'DRONE', 'IMPLEMENTO']
+
+export type FormaAquisicao =
+  | 'AVISTA'
+  | 'FINANCIAMENTO'
+  | 'LEASING'
+  | 'COMODATO'
+  | 'TROCA'
+  | 'DOACAO'
+
+export interface ParcelaFinanciamento {
+  id: string
+  numero: number
+  valor: number
+  vencimento: string
+  pago: boolean
+  dataPagamento?: string
+  transacaoId?: string
+}
 
 export interface Veiculo {
   id: string
-  placa: string
+  placa?: string
   modelo: string
   tipo: TipoVeiculo
   kmAtual: number
+  chassis?: string
+  serie?: string
+  valorAquisicao?: number
+  formaAquisicao?: FormaAquisicao
+  possuiFinanciamento?: boolean
+  instituicaoFinanciadora?: string
+  totalParcelas?: number
+  valorParcela?: number
+  parcelas?: ParcelaFinanciamento[]
 }
 
 export interface ViagemFrete {
