@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useRepoData } from '@/hooks/useRepoData'
 import { manutencoesVeiculoRepo, veiculosRepo, viagensFreteRepo } from '@/services/repositories'
 import type { Veiculo } from '@/types'
-import { TIPO_VEICULO_LABELS, estaNoMesAtual, formatarData, formatarMoeda } from './constants'
+import { TIPOS_SEM_PLACA } from '@/types'
+import { FORMA_AQUISICAO_LABELS, TIPO_VEICULO_LABELS, estaNoMesAtual, formatarData, formatarMoeda } from './constants'
 import type { TipoLancamento } from './constants'
 import { VeiculoFormDialog } from './frota/VeiculoFormDialog'
 
@@ -69,7 +70,9 @@ export function FrotaView({ onNovoLancamento }: FrotaViewProps) {
   }
 
   function placaVeiculo(veiculoId: string) {
-    return veiculos.find((v) => v.id === veiculoId)?.placa ?? 'Veículo removido'
+    const v = veiculos.find((veh) => veh.id === veiculoId)
+    if (!v) return 'Veículo removido'
+    return v.placa ?? v.chassis ?? v.serie ?? v.modelo
   }
 
   return (
@@ -107,7 +110,11 @@ export function FrotaView({ onNovoLancamento }: FrotaViewProps) {
             <Card key={veiculo.id}>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between text-base">
-                  <span>{veiculo.placa}</span>
+                  <span>
+                    {TIPOS_SEM_PLACA.includes(veiculo.tipo)
+                      ? (veiculo.chassis ?? veiculo.serie ?? veiculo.modelo)
+                      : (veiculo.placa ?? veiculo.modelo)}
+                  </span>
                   <div className="flex items-center gap-1">
                     <Badge variant="outline">{TIPO_VEICULO_LABELS[veiculo.tipo]}</Badge>
                     <Button
@@ -135,7 +142,44 @@ export function FrotaView({ onNovoLancamento }: FrotaViewProps) {
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
                 <p className="text-muted-foreground">{veiculo.modelo}</p>
-                <p>{veiculo.kmAtual.toLocaleString('pt-BR')} km rodados</p>
+                {!TIPOS_SEM_PLACA.includes(veiculo.tipo) && veiculo.placa && (
+                  <p className="text-xs text-muted-foreground">Placa: {veiculo.placa}</p>
+                )}
+                {veiculo.chassis && (
+                  <p className="text-xs text-muted-foreground">Chassis: {veiculo.chassis}</p>
+                )}
+                {veiculo.serie && (
+                  <p className="text-xs text-muted-foreground">Série: {veiculo.serie}</p>
+                )}
+                <p>{veiculo.kmAtual.toLocaleString('pt-BR')} {TIPOS_SEM_PLACA.includes(veiculo.tipo) ? 'horas/km' : 'km'} rodados</p>
+
+                {veiculo.valorAquisicao != null && (
+                  <p className="text-xs text-muted-foreground">
+                    Aquisição: {formatarMoeda(veiculo.valorAquisicao)}
+                    {veiculo.formaAquisicao ? ` · ${FORMA_AQUISICAO_LABELS[veiculo.formaAquisicao]}` : ''}
+                  </p>
+                )}
+
+                {veiculo.possuiFinanciamento && veiculo.parcelas && (() => {
+                  const emAberto = veiculo.parcelas.filter((p) => !p.pago)
+                  const totalAberto = emAberto.reduce((s, p) => s + p.valor, 0)
+                  const proxima = emAberto.sort((a, b) => a.vencimento.localeCompare(b.vencimento))[0]
+                  return (
+                    <div className="rounded border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/30 px-2 py-1 text-xs">
+                      <p className="font-medium text-amber-800 dark:text-amber-200">
+                        Financiamento em aberto: {formatarMoeda(totalAberto)}
+                      </p>
+                      {proxima && (
+                        <p className="text-amber-700 dark:text-amber-300">
+                          Próx. venc.: {formatarData(proxima.vencimento)} · {formatarMoeda(proxima.valor)}
+                        </p>
+                      )}
+                      <p className="text-muted-foreground">
+                        {veiculo.parcelas.filter((p) => p.pago).length}/{veiculo.parcelas.length} parcelas pagas
+                      </p>
+                    </div>
+                  )
+                })()}
 
                 {alerta && (
                   <Badge variant={alerta.variant} className="gap-1">

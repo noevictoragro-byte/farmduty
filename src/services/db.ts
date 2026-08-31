@@ -71,6 +71,11 @@ export class ProjetoSinhoDB extends Dexie {
         colaboradores_diarias: 'id, tenant_id, data_diaria',
         sync_queue: 'id, tenant_id, synced, timestamp',
       })
+
+    this.version(5)
+      .stores({
+        veiculos: 'id, placa, tipo, formaAquisicao, possuiFinanciamento',
+      })
   }
 }
 

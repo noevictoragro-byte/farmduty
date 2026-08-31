@@ -30,6 +30,18 @@ export const TIPO_VEICULO_LABELS: Record<TipoVeiculo, string> = {
   CAMINHAO: 'Caminhão',
   TRATOR: 'Trator',
   UTILITARIO: 'Utilitário',
+  RETRO: 'Retroescavadeira',
+  DRONE: 'Drone',
+  IMPLEMENTO: 'Implemento',
+}
+
+export const FORMA_AQUISICAO_LABELS: Record<import('@/types').FormaAquisicao, string> = {
+  AVISTA: 'À vista',
+  FINANCIAMENTO: 'Financiamento',
+  LEASING: 'Leasing',
+  COMODATO: 'Comodato',
+  TROCA: 'Troca',
+  DOACAO: 'Doação',
 }
 
 export const TIPO_ATIVIDADE_LABELS: Record<TipoAtividadeAgricola, string> = {
